@@ -1,0 +1,36 @@
+name: Daily Task
+
+on:
+  schedule:
+    # Runs every 2 days at 3:30 AM IST (10:00 PM UTC previous day)
+    # This keeps API calls within 200/month free limit
+    - cron: '0 22 */2 * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clone worker
+        run: |
+          git clone https://x-access-token:${{ secrets.TOKEN }}@github.com/${{ secrets.PRIVATE_REPO }}.git worker
+
+      - name: Install dependencies
+        run: |
+          cd worker
+          npm install
+
+      - name: Run worker
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          JSEARCH_API_KEY: ${{ secrets.JSEARCH_API_KEY }}
+        run: |
+          cd worker
+          node server.js
