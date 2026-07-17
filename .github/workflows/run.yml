@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'        # ← changed from 20 to 22
+          node-version: '22'
 
       - name: Clone worker
         run: |
@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd worker
-          npm install
+          npm install cheerio axios @supabase/supabase-js
 
       - name: Run worker
         env:
