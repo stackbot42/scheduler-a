@@ -29,6 +29,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           JSEARCH_API_KEY: ${{ secrets.JSEARCH_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CX_ID: ${{ secrets.GOOGLE_CX_ID }}
         run: |
           cd worker
           node server.js
